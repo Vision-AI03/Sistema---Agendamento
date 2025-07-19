@@ -1,0 +1,3173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda Moderna | Sistema Integrado</title>
+    <style>
+        /* Estilos anteriores mantidos */
+        :root {
+            /* Palette expandida */
+            --primary-50: #eff6ff;
+            --primary-100: #dbeafe;
+            --primary-200: #bfdbfe;
+            --primary-300: #93c5fd;
+            --primary-400: #60a5fa;
+            --primary: #3b82f6;
+            --primary-600: #2563eb;
+            --primary-700: #1d4ed8;
+            --primary-800: #1e40af;
+            --primary-900: #1e3a8a;
+            
+            --secondary-50: #ecfdf5;
+            --secondary-100: #d1fae5;
+            --secondary-200: #a7f3d0;
+            --secondary-300: #6ee7b7;
+            --secondary: #10b981;
+            --secondary-600: #059669;
+            --secondary-700: #047857;
+            --secondary-800: #065f46;
+            --secondary-900: #064e3b;
+            
+            --danger-50: #fef2f2;
+            --danger-100: #fee2e2;
+            --danger-200: #fecaca;
+            --danger-300: #fca5a5;
+            --danger: #f87171;
+            --danger-600: #ef4444;
+            --danger-700: #dc2626;
+            --danger-800: #b91c1c;
+            --danger-900: #991b1b;
+            
+            --warning-50: #fffbeb;
+            --warning-100: #fef3c7;
+            --warning-200: #fde68a;
+            --warning-300: #fcd34d;
+            --warning: #fbbf24;
+            --warning-600: #f59e0b;
+            --warning-700: #d97706;
+            --warning-800: #b45309;
+            --warning-900: #92400e;
+            
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            
+            --white: #ffffff;
+            --black: #000000;
+            
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            
+            --rounded-sm: 4px;
+            --rounded: 8px;
+            --rounded-md: 12px;
+            --rounded-lg: 16px;
+            --rounded-full: 9999px;
+            
+            --transition-fast: 150ms ease;
+            --transition: 250ms ease;
+            --transition-slow: 350ms ease;
+            
+            --font-sans: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+            --font-size-3xl: 1.875rem;
+            
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            
+            --z-index-modal: 1000;
+            --z-index-notification: 1001;
+            --z-index-dropdown: 1002;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-sans);
+        }
+
+        body {
+            background-color: var(--gray-50);
+            color: var(--gray-900);
+            line-height: 1.6;
+            font-size: var(--font-size-base);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-5);
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-5) 0;
+            margin-bottom: var(--space-8);
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+        }
+
+        .logo-image {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--rounded);
+            object-fit: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: var(--gray-200);
+            color: var(--white);
+            font-weight: bold;
+            font-size: var(--font-size-xl);
+        }
+
+        .logo-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .logo h1 {
+            font-size: var(--font-size-2xl);
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: var(--space-3);
+        }
+
+        .btn {
+            padding: var(--space-3) var(--space-4);
+            border-radius: var(--rounded);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-size: var(--font-size-base);
+        }
+
+        .btn:focus {
+            outline: 2px solid var(--primary-600);
+            outline-offset: 2px;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .header-btn {
+            background-color: var(--gray-100);
+            color: var(--gray-700);
+        }
+
+        .header-btn:hover:not(:disabled) {
+            background-color: var(--gray-200);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-600);
+            color: var(--white);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background-color: var(--primary-700);
+        }
+
+        .btn-danger {
+            background-color: var(--danger-600);
+            color: var(--white);
+        }
+
+        .btn-danger:hover:not(:disabled) {
+            background-color: var(--danger-700);
+        }
+
+        .btn-secondary {
+            background-color: var(--gray-300);
+            color: var(--gray-800);
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background-color: var(--gray-400);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--gray-300);
+            color: var(--gray-700);
+        }
+
+        .btn-outline:hover:not(:disabled) {
+            background: var(--gray-100);
+        }
+
+        .btn-block {
+            width: 100%;
+            display: block;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-5);
+        }
+
+        .month-selector {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+        }
+
+        .nav-btn {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .nav-btn:hover {
+            background: var(--gray-100);
+            border-color: var(--gray-300);
+        }
+
+        .nav-btn:focus {
+            outline: 2px solid var(--primary-600);
+            outline-offset: 2px;
+        }
+
+        .current-month {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            min-width: 180px;
+            text-align: center;
+        }
+
+        .week-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: var(--space-3);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: var(--space-2);
+        }
+
+        .calendar-day {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--rounded-md);
+            min-height: 120px;
+            padding: var(--space-3);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calendar-day:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .calendar-day.inactive {
+            background-color: var(--gray-100);
+            color: var(--gray-400);
+        }
+
+        .day-number {
+            font-weight: 600;
+            margin-bottom: var(--space-2);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .today .day-number {
+            background-color: var(--primary-600);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .day-slots {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-1);
+        }
+
+        .slot {
+            font-size: var(--font-size-xs);
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--rounded-sm);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            border: 1px solid transparent;
+            text-align: center;
+        }
+
+        .slot:hover:not(.slot-booked):not(.slot-unavailable) {
+            transform: scale(1.02);
+        }
+
+        .slot.selected {
+            border: 2px solid var(--primary-600);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+        }
+
+        .slot-available {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--secondary-700);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .slot-booked {
+            background-color: rgba(209, 213, 219, 0.3);
+            color: var(--gray-500);
+            border: 1px solid rgba(209, 213, 219, 0.5);
+            cursor: not-allowed;
+        }
+
+        .slot-unavailable {
+            background-color: var(--gray-100);
+            color: var(--gray-400);
+            cursor: not-allowed;
+        }
+
+        .slot-busy {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--danger-700);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: var(--z-index-modal);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            border-radius: var(--rounded-md);
+            width: 100%;
+            max-width: 800px;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow-lg);
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: var(--space-5);
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: var(--font-size-2xl);
+            cursor: pointer;
+            color: var(--gray-700);
+            transition: var(--transition-fast);
+            border-radius: var(--rounded-sm);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            background-color: var(--gray-100);
+        }
+
+        .close-btn:focus {
+            outline: 2px solid var(--primary-600);
+            outline-offset: 2px;
+        }
+
+        .modal-body {
+            padding: var(--space-5);
+            overflow-y: auto;
+            max-height: 70vh;
+        }
+
+        .form-group {
+            margin-bottom: var(--space-5);
+        }
+
+        label {
+            display: block;
+            margin-bottom: var(--space-2);
+            font-weight: 500;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: var(--space-3);
+            border: 1px solid var(--gray-300);
+            border-radius: var(--rounded);
+            font-size: var(--font-size-base);
+            transition: var(--transition-fast);
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-600);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .input-error {
+            border-color: var(--danger-600);
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+        }
+
+        .error-message {
+            color: var(--danger-700);
+            font-size: var(--font-size-sm);
+            margin-top: var(--space-1);
+            display: none;
+        }
+
+        .notification {
+            position: fixed;
+            top: var(--space-5);
+            right: var(--space-5);
+            padding: var(--space-3) var(--space-4);
+            border-radius: var(--rounded);
+            background-color: var(--white);
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            transform: translateX(120%);
+            transition: var(--transition);
+            z-index: var(--z-index-notification);
+            max-width: 400px;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            border-left: 4px solid var(--secondary-600);
+        }
+
+        .notification.error {
+            border-left: 4px solid var(--danger-600);
+        }
+
+        .notification.warning {
+            border-left: 4px solid var(--warning-600);
+        }
+
+        .notification.info {
+            border-left: 4px solid var(--primary-600);
+        }
+
+        .notification-icon {
+            font-size: var(--font-size-xl);
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .notification.success .notification-icon {
+            background-color: var(--secondary-100);
+            color: var(--secondary-700);
+        }
+
+        .notification.error .notification-icon {
+            background-color: var(--danger-100);
+            color: var(--danger-700);
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .admin-panel {
+            display: none;
+        }
+
+        .admin-panel.active {
+            display: block;
+        }
+
+        .tabs {
+            display: flex;
+            gap: var(--space-2);
+            margin-bottom: var(--space-5);
+            border-bottom: 1px solid var(--gray-200);
+            padding-bottom: var(--space-2);
+        }
+
+        .tab {
+            padding: var(--space-2) var(--space-4);
+            border-radius: var(--rounded);
+            background: var(--gray-100);
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition-fast);
+        }
+
+        .tab.active {
+            background: var(--primary-600);
+            color: var(--white);
+        }
+
+        .tab:not(.active):hover {
+            background: var(--gray-200);
+        }
+
+        .admin-content {
+            background: white;
+            border-radius: var(--rounded-md);
+            padding: var(--space-5);
+            box-shadow: var(--shadow);
+        }
+
+        .booking-item {
+            display: flex;
+            justify-content: space-between;
+            padding: var(--space-4);
+            border-bottom: 1px solid var(--gray-200);
+            transition: var(--transition-fast);
+        }
+
+        .booking-item:hover {
+            background-color: var(--gray-50);
+        }
+
+        .booking-item:last-child {
+            border-bottom: none;
+        }
+
+        .booking-info {
+            flex: 1;
+        }
+
+        .booking-actions {
+            display: flex;
+            gap: var(--space-2);
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: var(--font-size-lg);
+            transition: var(--transition-fast);
+            border-radius: var(--rounded-sm);
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .action-btn:hover {
+            background-color: var(--gray-100);
+        }
+
+        .action-btn:focus {
+            outline: 2px solid var(--primary-600);
+            outline-offset: 2px;
+        }
+
+        .edit-btn {
+            color: var(--primary-600);
+        }
+
+        .delete-btn {
+            color: var(--danger-600);
+        }
+
+        .search-box {
+            display: flex;
+            gap: var(--space-3);
+            margin-bottom: var(--space-5);
+        }
+
+        .search-input {
+            flex: 1;
+        }
+
+        .search-results {
+            margin-top: var(--space-5);
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--rounded);
+        }
+
+        .result-item {
+            padding: var(--space-4);
+            border-bottom: 1px solid var(--gray-200);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .result-item:hover {
+            background-color: var(--gray-50);
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .result-item h4 {
+            margin-bottom: var(--space-1);
+        }
+
+        .booking-actions-row {
+            display: flex;
+            gap: var(--space-3);
+            margin-top: var(--space-5);
+        }
+
+        .booking-details {
+            padding: var(--space-5) 0;
+            border-bottom: 1px solid var(--gray-200);
+            margin-bottom: var(--space-5);
+        }
+
+        .time-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: var(--space-3);
+            margin-top: var(--space-4);
+        }
+
+        .time-slot {
+            padding: var(--space-3);
+            border-radius: var(--rounded);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .time-slot.available {
+            background-color: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .time-slot.unavailable {
+            background-color: rgba(209, 213, 219, 0.3);
+            border: 1px solid rgba(209, 213, 219, 0.5);
+        }
+
+        .time-slot.busy {
+            background-color: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .skeleton {
+            background-color: var(--gray-200);
+            border-radius: var(--rounded);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 0.3; }
+            100% { opacity: 0.6; }
+        }
+
+        .skeleton-text {
+            height: 1em;
+            margin-bottom: var(--space-2);
+            border-radius: var(--rounded-sm);
+        }
+
+        .stat-card {
+            background-color: var(--white);
+            border-radius: var(--rounded-md);
+            padding: var(--space-4);
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stat-value {
+            font-size: var(--font-size-2xl);
+            font-weight: 700;
+            margin-bottom: var(--space-1);
+        }
+
+        .stat-label {
+            color: var(--gray-600);
+            font-size: var(--font-size-sm);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-4);
+            margin-bottom: var(--space-5);
+        }
+
+        .export-options {
+            display: flex;
+            gap: var(--space-3);
+            margin-top: var(--space-5);
+        }
+
+        .export-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+        }
+        
+        /* Novos estilos para melhorias */
+        .upload-container {
+            position: relative;
+            margin-bottom: var(--space-4);
+        }
+        
+        .logo-preview {
+            width: 100px;
+            height: 100px;
+            border-radius: var(--rounded);
+            object-fit: contain;
+            background-color: var(--gray-100);
+            margin-top: var(--space-2);
+            display: none;
+        }
+        
+        .file-label {
+            display: inline-block;
+            padding: var(--space-2) var(--space-3);
+            background-color: var(--gray-100);
+            border-radius: var(--rounded);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid var(--gray-300);
+        }
+        
+        .file-label:hover {
+            background-color: var(--gray-200);
+        }
+        
+        .loader {
+            border: 3px solid var(--gray-200);
+            border-top: 3px solid var(--primary-600);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .booking-confirmation {
+            text-align: center;
+            padding: var(--space-5);
+        }
+        
+        .confirmation-icon {
+            font-size: 3rem;
+            color: var(--secondary-600);
+            margin-bottom: var(--space-4);
+        }
+        
+        .confirmation-buttons {
+            display: flex;
+            gap: var(--space-3);
+            justify-content: center;
+            margin-top: var(--space-5);
+        }
+        
+        .day-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-2);
+            margin-bottom: var(--space-4);
+        }
+        
+        .day-btn {
+            padding: var(--space-2) var(--space-3);
+            border-radius: var(--rounded);
+            background: var(--gray-100);
+            cursor: pointer;
+            border: none;
+            transition: var(--transition-fast);
+        }
+        
+        .day-btn.active {
+            background: var(--primary-600);
+            color: var(--white);
+        }
+        
+        .day-btn:hover:not(.active) {
+            background: var(--gray-200);
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--rounded);
+            font-size: var(--font-size-xs);
+            font-weight: 600;
+        }
+        
+        .status-confirmed {
+            background-color: var(--secondary-100);
+            color: var(--secondary-800);
+        }
+        
+        .status-cancelled {
+            background-color: var(--danger-100);
+            color: var(--danger-800);
+        }
+        
+        .status-rescheduled {
+            background-color: var(--warning-100);
+            color: var(--warning-800);
+        }
+        
+        .no-bookings {
+            text-align: center;
+            padding: var(--space-10) 0;
+            color: var(--gray-500);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: var(--font-size-2xl);
+            cursor: pointer;
+        }
+        
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            gap: var(--space-2);
+            padding: var(--space-4) 0;
+        }
+
+        /* Melhorias de acessibilidade */
+        .btn:focus-visible, 
+        .nav-btn:focus-visible, 
+        .close-btn:focus-visible,
+        .action-btn:focus-visible,
+        input:focus-visible,
+        select:focus-visible,
+        textarea:focus-visible {
+            outline: 2px solid var(--primary-600);
+            outline-offset: 2px;
+        }
+
+        /* === MOBILE FIRST - EXPERIÊNCIA OTIMIZADA === */
+        /* Fluxo de agendamento mobile: dia -> horário -> formulário */
+        
+        /* Etapa 1: Seleção de dia */
+        .calendar-day.mobile-day {
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+        
+        .calendar-day.mobile-day.today {
+            background-color: var(--primary-100);
+        }
+        
+        .calendar-day.mobile-day.selected {
+            background-color: var(--primary-600);
+            color: white;
+        }
+        
+        /* Etapa 2: Seleção de horário */
+        .time-selection-container {
+            display: none;
+            padding: var(--space-4);
+            background: white;
+            border-radius: var(--rounded-md);
+            margin-top: var(--space-4);
+            box-shadow: var(--shadow);
+        }
+        
+        .time-selection-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-4);
+        }
+        
+        .time-slots-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-3);
+        }
+        
+        .time-slot-btn {
+            padding: var(--space-3);
+            border-radius: var(--rounded);
+            text-align: center;
+            background: var(--gray-100);
+            border: 1px solid var(--gray-300);
+            transition: var(--transition);
+        }
+        
+        .time-slot-btn.available {
+            background: var(--secondary-50);
+            border-color: var(--secondary-200);
+        }
+        
+        .time-slot-btn.booked {
+            background: var(--gray-200);
+            color: var(--gray-500);
+            cursor: not-allowed;
+        }
+        
+        .time-slot-btn.selected {
+            background: var(--primary-600);
+            color: white;
+            border-color: var(--primary-700);
+        }
+        
+        /* Modal otimizado para mobile */
+        .modal-content.mobile-optimized {
+            max-width: 95vw;
+            max-height: 95vh;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        
+        .modal-body.mobile-form {
+            padding: var(--space-4);
+        }
+        
+        /* Responsividade */
+        @media (max-width: 992px) {
+            .calendar-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+            
+            .week-days {
+                grid-template-columns: repeat(5, 1fr);
+            }
+            
+            .confirmation-buttons {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            /* Layout otimizado para mobile */
+            header {
+                flex-direction: column;
+                gap: var(--space-4);
+                padding: var(--space-4) 0;
+            }
+            
+            .logo {
+                flex-direction: column;
+                text-align: center;
+                gap: var(--space-2);
+            }
+            
+            .logo h1 {
+                font-size: var(--font-size-xl);
+            }
+            
+            .header-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .calendar-header {
+                flex-direction: column;
+                gap: var(--space-4);
+            }
+            
+            .calendar-grid {
+                grid-template-columns: repeat(7, 1fr);
+                gap: 4px;
+            }
+            
+            .week-days {
+                grid-template-columns: repeat(7, 1fr);
+                font-size: var(--font-size-sm);
+            }
+            
+            .calendar-day {
+                min-height: 50px;
+                padding: 8px 4px;
+            }
+            
+            .day-slots {
+                display: none;
+            }
+            
+            .calendar-day .day-number {
+                text-align: center;
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .today .day-number {
+                width: 26px;
+                height: 26px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .header-buttons {
+                display: none;
+            }
+            
+            .mobile-menu.active {
+                display: flex;
+            }
+            
+            /* Fluxo de agendamento mobile */
+            .calendar-day {
+                min-height: 60px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 600;
+                font-size: 1.1rem;
+                cursor: pointer;
+            }
+            
+            .calendar-day.today {
+                background-color: var(--primary-100);
+            }
+            
+            .calendar-day.selected {
+                background-color: var(--primary-600);
+                color: white;
+            }
+            
+            .time-selection-container {
+                display: block;
+            }
+            
+            .time-slots-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .modal-content {
+                max-width: 95%;
+            }
+            
+            .booking-actions-row {
+                flex-direction: column;
+            }
+            
+            .modal-body {
+                padding: var(--space-4);
+            }
+            
+            .form-group {
+                margin-bottom: var(--space-4);
+            }
+            
+            input, textarea, select {
+                padding: var(--space-3);
+                font-size: var(--font-size-sm);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .calendar-grid {
+                grid-template-columns: repeat(7, 1fr);
+            }
+            
+            .week-days {
+                grid-template-columns: repeat(7, 1fr);
+                font-size: 11px;
+            }
+            
+            .tabs {
+                flex-wrap: wrap;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .confirmation-buttons {
+                flex-direction: column;
+            }
+            
+            .time-slots-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .time-slot-btn {
+                padding: var(--space-2);
+                font-size: var(--font-size-sm);
+            }
+            
+            .current-month {
+                font-size: var(--font-size-lg);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .calendar-day {
+                min-height: 50px;
+                font-size: 1rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .time-selection-header h3 {
+                font-size: var(--font-size-lg);
+            }
+        }
+
+        /* Acessibilidade */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        .focus-visible:focus-visible {
+            outline: 2px solid var(--primary-600);
+            outline-offset: 2px;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-image" id="logoContainer">
+                    <!-- Logo será carregado via JavaScript -->
+                </div>
+                <h1 id="systemTitle">Agenda Moderna</h1>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+            <div class="header-buttons">
+                <button class="btn header-btn" id="myBookingsBtn" aria-label="Meus Agendamentos">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="8.5" cy="7" r="4"></circle>
+                        <line x1="20" y1="8" x2="20" y2="14"></line>
+                        <line x1="23" y1="11" x2="17" y2="11"></line>
+                    </svg>
+                    Meus Agendamentos
+                </button>
+                <button class="btn header-btn" id="adminBtn" aria-label="Painel Administrativo">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                        <polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline>
+                        <polyline points="7.5 19.79 7.5 14.6 3 12"></polyline>
+                        <polyline points="21 12 16.5 14.6 16.5 19.79"></polyline>
+                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                    </svg>
+                    Painel Admin
+                </button>
+            </div>
+            <div class="mobile-menu" id="mobileMenu">
+                <button class="btn header-btn" id="mobileMyBookingsBtn" aria-label="Meus Agendamentos">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="8.5" cy="7" r="4"></circle>
+                        <line x1="20" y1="8" x2="20" y2="14"></line>
+                        <line x1="23" y1="11" x2="17" y2="11"></line>
+                    </svg>
+                    Meus Agendamentos
+                </button>
+                <button class="btn header-btn" id="mobileAdminBtn" aria-label="Painel Administrativo">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                        <polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline>
+                        <polyline points="7.5 19.79 7.5 14.6 3 12"></polyline>
+                        <polyline points="21 12 16.5 14.6 16.5 19.79"></polyline>
+                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                    </svg>
+                    Painel Admin
+                </button>
+            </div>
+        </header>
+
+        <section class="calendar-section">
+            <div class="calendar-header">
+                <div class="month-selector">
+                    <button class="nav-btn" id="prevMonth" aria-label="Mês anterior">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    </button>
+                    <div class="current-month" id="currentMonth">Julho 2025</div>
+                    <button class="nav-btn" id="nextMonth" aria-label="Próximo mês">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="week-days">
+                <div>Dom</div>
+                <div>Seg</div>
+                <div>Ter</div>
+                <div>Qua</div>
+                <div>Qui</div>
+                <div>Sex</div>
+                <div>Sáb</div>
+            </div>
+
+            <div class="calendar-grid" id="calendarGrid">
+                <!-- Os dias do calendário serão gerados via JavaScript -->
+            </div>
+            
+            <!-- Nova seção para seleção de horários (mobile) -->
+            <div class="time-selection-container" id="timeSelectionContainer">
+                <div class="time-selection-header">
+                    <h3>Horários disponíveis para <span id="selectedDateText"></span></h3>
+                    <button class="btn btn-outline" id="clearDateSelection">
+                        Alterar data
+                    </button>
+                </div>
+                <div class="time-slots-grid" id="mobileTimeGrid">
+                    <!-- Horários serão gerados aqui -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal de Agendamento (otimizado para mobile) -->
+    <div class="modal" id="bookingModal" aria-hidden="true">
+        <div class="modal-content mobile-optimized" role="dialog" aria-modal="true" aria-labelledby="bookingModalTitle">
+            <div class="modal-header">
+                <h2 id="bookingModalTitle">Agendar Reunião</h2>
+                <button class="close-btn" id="closeBookingModal" aria-label="Fechar">&times;</button>
+            </div>
+            <div class="modal-body mobile-form">
+                <div class="form-group">
+                    <label for="name">Nome Completo</label>
+                    <input type="text" id="name" placeholder="Digite seu nome completo" aria-required="true">
+                    <div class="error-message" id="nameError">Por favor, informe seu nome completo</div>
+                </div>
+                <div class="form-group">
+                    <label for="phone">WhatsApp</label>
+                    <input type="tel" id="phone" placeholder="(00) 00000-0000" aria-required="true" maxlength="15">
+                    <div class="error-message" id="phoneError">Por favor, informe um número válido</div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="seu@email.com" aria-required="true">
+                    <div class="error-message" id="emailError">Por favor, informe um email válido</div>
+                </div>
+                <div class="form-group">
+                    <label for="notes">Observações (opcional)</label>
+                    <textarea id="notes" rows="2" placeholder="Alguma informação adicional..."></textarea>
+                </div>
+                <div class="form-group">
+                    <p><strong>Data:</strong> <span id="modalDate">18/07/2025</span></p>
+                    <p><strong>Horário:</strong> <span id="modalTime">10:00</span></p>
+                </div>
+                <button class="btn btn-primary btn-block" id="confirmBooking">Confirmar Agendamento</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação -->
+    <div class="modal" id="confirmationModal" aria-hidden="true">
+        <div class="modal-content mobile-optimized" role="dialog" aria-modal="true" aria-labelledby="confirmationModalTitle">
+            <div class="modal-header">
+                <h2 id="confirmationModalTitle">Agendamento Confirmado!</h2>
+                <button class="close-btn" id="closeConfirmationModal" aria-label="Fechar">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="booking-confirmation">
+                    <div class="confirmation-icon">✓</div>
+                    <p>Seu agendamento foi confirmado com sucesso!</p>
+                    <p><strong>Data:</strong> <span id="confirmationDate">18/07/2025</span></p>
+                    <p><strong>Horário:</strong> <span id="confirmationTime">10:00</span></p>
+                    <p>Você receberá um email de confirmação com os detalhes.</p>
+                    
+                    <div class="confirmation-buttons">
+                        <button class="btn btn-outline" id="viewBookingBtn">Ver Meu Agendamento</button>
+                        <button class="btn btn-primary" id="newBookingBtn">Novo Agendamento</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Administração -->
+    <div class="modal" id="adminModal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="adminModalTitle">
+            <div class="modal-header">
+                <h2 id="adminModalTitle">Painel Administrativo</h2>
+                <div style="display:flex; align-items:center;">
+                    <button id="logoutBtn" class="btn btn-danger" style="display:none; margin-right: 10px;">Sair</button>
+                    <button class="close-btn" id="closeAdminModal" aria-label="Fechar">&times;</button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div id="loginPanel">
+                    <div class="form-group">
+                        <label for="adminPassword">Senha de Acesso</label>
+                        <input type="password" id="adminPassword" placeholder="Digite sua senha" aria-required="true">
+                        <div class="error-message" id="passwordError">Senha incorreta</div>
+                    </div>
+                    <button class="btn btn-primary btn-block" id="loginBtn">Acessar Painel</button>
+                </div>
+                
+                <div class="admin-panel" id="adminPanel">
+                    <div class="tabs">
+                        <div class="tab active" data-tab="bookings" role="tab" aria-selected="true">Agendamentos</div>
+                        <div class="tab" data-tab="availability" role="tab" aria-selected="false">Disponibilidade</div>
+                        <div class="tab" data-tab="settings" role="tab" aria-selected="false">Configurações</div>
+                        <div class="tab" data-tab="n8n" role="tab" aria-selected="false">Integração n8n</div>
+                        <div class="tab" data-tab="stats" role="tab" aria-selected="false">Estatísticas</div>
+                    </div>
+                    
+                    <div class="admin-content">
+                        <div id="bookingsTab">
+                            <h3>Agendamentos Confirmados</h3>
+                            <div id="bookingsList">
+                                <!-- Lista de agendamentos será gerada aqui -->
+                            </div>
+                        </div>
+                        
+                        <div id="availabilityTab" style="display:none;">
+                            <h3>Controle de Disponibilidade</h3>
+                            <p>Selecione os horários que deseja bloquear:</p>
+                            
+                            <div class="day-selector" id="daySelector">
+                                <button class="day-btn" data-day="0">Domingo</button>
+                                <button class="day-btn" data-day="1">Segunda</button>
+                                <button class="day-btn" data-day="2">Terça</button>
+                                <button class="day-btn" data-day="3">Quarta</button>
+                                <button class="day-btn" data-day="4">Quinta</button>
+                                <button class="day-btn" data-day="5">Sexta</button>
+                                <button class="day-btn" data-day="6">Sábado</button>
+                            </div>
+                            
+                            <div class="time-grid" id="adminTimeGrid">
+                                <!-- Grade de horários para administrador -->
+                            </div>
+                            <button class="btn btn-primary" id="saveAvailability" style="margin-top:20px;">Salvar Alterações</button>
+                        </div>
+                        
+                        <div id="settingsTab" style="display:none;">
+                            <h3>Configurações Gerais</h3>
+                            <div class="form-group">
+                                <label>Título do Sistema</label>
+                                <input type="text" id="systemTitleInput" placeholder="Nome do seu sistema">
+                            </div>
+                            <div class="form-group">
+                                <label>Logo</label>
+                                <div class="upload-container">
+                                    <input type="file" id="logoUpload" accept="image/*" style="display: none;">
+                                    <label for="logoUpload" class="file-label">Selecionar imagem</label>
+                                    <img id="logoPreview" class="logo-preview" alt="Pré-visualização do logo">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Horário de Funcionamento</label>
+                                <div style="display: flex; gap: 10px;">
+                                    <select id="startTime" style="flex:1; padding:10px;">
+                                        <option>08:00</option>
+                                        <option>09:00</option>
+                                        <option>10:00</option>
+                                        <option>11:00</option>
+                                        <option>12:00</option>
+                                        <option>13:00</option>
+                                        <option>14:00</option>
+                                        <option>15:00</option>
+                                        <option>16:00</option>
+                                        <option>17:00</option>
+                                    </select>
+                                    <select id="endTime" style="flex:1; padding:10px;">
+                                        <option>09:00</option>
+                                        <option>10:00</option>
+                                        <option>11:00</option>
+                                        <option>12:00</option>
+                                        <option>13:00</option>
+                                        <option>14:00</option>
+                                        <option>15:00</option>
+                                        <option>16:00</option>
+                                        <option>17:00</option>
+                                        <option>18:00</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Duração dos Slots (minutos)</label>
+                                <select id="slotDuration" style="width:100%; padding:10px;">
+                                    <option value="30">30 minutos</option>
+                                    <option value="60">60 minutos</option>
+                                    <option value="120" selected>120 minutos</option>
+                                    <option value="180">180 minutos</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary" id="saveSettings">Salvar Configurações</button>
+                        </div>
+                        
+                        <div id="n8nTab" style="display:none;">
+                            <h3>Configuração de Integração n8n</h3>
+                            <div class="form-group">
+                                <label>Webhook para Novo Agendamento</label>
+                                <input type="text" id="webhookNewBooking" placeholder="URL do webhook">
+                            </div>
+                            <div class="form-group">
+                                <label>Webhook para Cancelamento</label>
+                                <input type="text" id="webhookCancelBooking" placeholder="URL do webhook">
+                            </div>
+                            <div class="form-group">
+                                <label>Webhook para Remarcação</label>
+                                <input type="text" id="webhookRescheduleBooking" placeholder="URL do webhook">
+                            </div>
+                            <div class="form-group">
+                                <label>Token de Segurança (opcional)</label>
+                                <input type="text" id="webhookToken" placeholder="Token para autenticação">
+                            </div>
+                            <div class="form-group">
+                                <label>ID do Calendário Google</label>
+                                <input type="text" id="googleCalendarId" placeholder="ID do seu calendário Google">
+                            </div>
+                            <button class="btn btn-primary" id="saveN8nSettings">Salvar Configurações</button>
+                        </div>
+                        
+                        <div id="statsTab" style="display:none;">
+                            <h3>Estatísticas de Agendamento</h3>
+                            <div class="stats-grid">
+                                <div class="stat-card">
+                                    <div class="stat-value" id="totalBookings">0</div>
+                                    <div class="stat-label">Agendamentos Totais</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-value" id="confirmedBookings">0</div>
+                                    <div class="stat-label">Confirmados</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-value" id="cancelledBookings">0</div>
+                                    <div class="stat-label">Cancelados</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-value" id="avgBookingDuration">0</div>
+                                    <div class="stat-label">Duração Média (min)</div>
+                                </div>
+                            </div>
+                            <h4>Exportar Dados</h4>
+                            <div class="export-options">
+                                <button class="btn btn-outline export-btn" id="exportCSV">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                        <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/>
+                                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+                                    </svg>
+                                    CSV
+                                </button>
+                                <button class="btn btn-outline export-btn" id="exportJSON">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                        <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/>
+                                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+                                    </svg>
+                                    JSON
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Meus Agendamentos -->
+    <div class="modal" id="myBookingsModal" aria-hidden="true">
+        <div class="modal-content mobile-optimized" role="dialog" aria-modal="true" aria-labelledby="myBookingsModalTitle">
+            <div class="modal-header">
+                <h2 id="myBookingsModalTitle">Meus Agendamentos</h2>
+                <button class="close-btn" id="closeMyBookingsModal" aria-label="Fechar">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="search-box">
+                    <input type="email" id="searchEmail" class="search-input" placeholder="Digite seu email" aria-label="Buscar por email">
+                    <button class="btn btn-primary" id="searchBtn">Buscar</button>
+                </div>
+                
+                <div id="searchResults" class="search-results">
+                    <!-- Resultados da busca serão exibidos aqui -->
+                </div>
+                
+                <div id="bookingDetails" style="display: none;">
+                    <div class="booking-details">
+                        <h3>Detalhes do Agendamento</h3>
+                        <p><strong>Nome:</strong> <span id="detailName"></span></p>
+                        <p><strong>Email:</strong> <span id="detailEmail"></span></p>
+                        <p><strong>Telefone:</strong> <span id="detailPhone"></span></p>
+                        <p><strong>Data:</strong> <span id="detailDate"></span></p>
+                        <p><strong>Horário:</strong> <span id="detailTime"></span></p>
+                        <p><strong>Status:</strong> <span id="detailStatus"></span></p>
+                        <p><strong>Observações:</strong> <span id="detailNotes"></span></p>
+                    </div>
+                    
+                    <div class="booking-actions-row">
+                        <button class="btn btn-danger" id="cancelBookingBtn">Cancelar Agendamento</button>
+                        <button class="btn btn-outline" id="rescheduleBookingBtn">Remarcar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notificação -->
+    <div class="notification" id="notification" role="alert" aria-live="assertive">
+        <div class="notification-icon" id="notificationIcon">✓</div>
+        <div class="notification-content" id="notificationContent">Agendamento confirmado com sucesso!</div>
+    </div>
+
+    <script>
+        // Módulo de armazenamento com tratamento de erros e segurança
+        const StorageManager = {
+            save: (key, data) => {
+                try {
+                    localStorage.setItem(key, JSON.stringify(data));
+                    return true;
+                } catch (e) {
+                    console.error('Erro ao salvar no localStorage:', e);
+                    NotificationSystem.show('Erro ao salvar dados. Tente novamente mais tarde.', 'error');
+                    return false;
+                }
+            },
+            load: (key, defaultValue = null) => {
+                try {
+                    const data = localStorage.getItem(key);
+                    return data ? JSON.parse(data) : defaultValue;
+                } catch (e) {
+                    console.error('Erro ao carregar do localStorage:', e);
+                    NotificationSystem.show('Erro ao carregar dados. Recarregue a página.', 'error');
+                    return defaultValue;
+                }
+            }
+        };
+
+        // Módulo de validação robusta com mensagens amigáveis
+        const Validation = {
+            email: (email) => {
+                const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return re.test(String(email).toLowerCase());
+            },
+            phone: (phone) => {
+                // Formato brasileiro: (00) 00000-0000 ou (00) 0000-0000
+                const re = /^\(?\d{2}\)?[\s-]?\d{4,5}[\s-]?\d{4}$/;
+                return re.test(phone);
+            },
+            required: (value) => {
+                return value !== null && value !== undefined && value.trim() !== '';
+            },
+            date: (date) => {
+                return !isNaN(new Date(date).getTime());
+            },
+            time: (time) => {
+                return /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/.test(time);
+            }
+        };
+
+        // Sistema de notificações empilháveis com mensagens amigáveis
+        class NotificationSystem {
+            static show(message, type = 'success', duration = 3000) {
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                notification.setAttribute('role', 'alert');
+                notification.setAttribute('aria-live', 'assertive');
+                
+                let icon = '✓';
+                if (type === 'error') icon = '✕';
+                if (type === 'warning') icon = '⚠';
+                if (type === 'info') icon = 'i';
+                
+                notification.innerHTML = `
+                    <div class="notification-icon">${icon}</div>
+                    <div class="notification-content">${message}</div>
+                `;
+                document.body.appendChild(notification);
+                
+                // Mostrar
+                setTimeout(() => {
+                    notification.classList.add('show');
+                }, 10);
+                
+                // Esconder após a duração
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                    // Remover após a animação
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 300);
+                }, duration);
+            }
+        }
+
+        // Função de debounce para melhorar performance
+        const debounce = (func, delay) => {
+            let timeoutId;
+            return (...args) => {
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(() => func(...args), delay);
+            };
+        };
+
+        // Função para sanitizar inputs (prevenção XSS)
+        const sanitizeInput = (input) => {
+            if (!input) return '';
+            const div = document.createElement('div');
+            div.textContent = input;
+            return div.innerHTML;
+        };
+
+        // Gerador de IDs únicos
+        const generateId = () => {
+            return Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+        };
+
+        // Função de hash simples para senha (não seguro para produção, apenas demonstração)
+        const hashPassword = (password) => {
+            let hash = 0;
+            for (let i = 0; i < password.length; i++) {
+                const char = password.charCodeAt(i);
+                hash = (hash << 5) - hash + char;
+                hash = hash & hash; // Convert to 32bit integer
+            }
+            return hash.toString();
+        };
+
+        // Função para enviar dados para o n8n
+        const sendToN8n = async (webhookUrl, data, token = '') => {
+            try {
+                const headers = {
+                    'Content-Type': 'application/json'
+                };
+                
+                if (token) {
+                    headers['Authorization'] = `Bearer ${token}`;
+                }
+                
+                const response = await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify(data)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                return await response.json();
+            } catch (error) {
+                console.error('Erro ao enviar para n8n:', error);
+                NotificationSystem.show('Erro na integração com o Google Calendar. Tente novamente.', 'error');
+                return null;
+            }
+        };
+
+        // Dados iniciais
+        let timeSlots = {};
+        let bookings = [];
+        let systemSettings = {};
+
+        // Carregar dados do localStorage ou usar padrões
+        const loadInitialData = () => {
+            // Horários padrão para cada dia da semana
+            const defaultTimeSlots = {
+                '0': [], // Domingo
+                '1': [
+                    { time: "08:00", status: "available" },
+                    { time: "10:00", status: "available" },
+                    { time: "14:00", status: "available" },
+                    { time: "16:00", status: "available" }
+                ],
+                '2': [
+                    { time: "08:00", status: "available" },
+                    { time: "10:00", status: "available" },
+                    { time: "14:00", status: "available" },
+                    { time: "16:00", status: "available" }
+                ],
+                '3': [
+                    { time: "08:00", status: "available" },
+                    { time: "10:00", status: "available" },
+                    { time: "14:00", status: "available" },
+                    { time: "16:00", status: "available" }
+                ],
+                '4': [
+                    { time: "08:00", status: "available" },
+                    { time: "10:00", status: "available" },
+                    { time: "14:00", status: "available" },
+                    { time: "16:00", status: "available" }
+                ],
+                '5': [
+                    { time: "08:00", status: "available" },
+                    { time: "10:00", status: "available" },
+                    { time: "14:00", status: "available" },
+                    { time: "16:00", status: "available" }
+                ],
+                '6': [] // Sábado
+            };
+            
+            timeSlots = StorageManager.load('timeSlots', defaultTimeSlots);
+            
+            bookings = StorageManager.load('bookings', [
+                {
+                    id: generateId(),
+                    name: "Carlos Silva",
+                    phone: "(11) 99999-8888",
+                    email: "carlos@empresa.com",
+                    date: "2025-07-18",
+                    time: "16:00",
+                    status: "confirmed",
+                    notes: "Discutir projeto novo",
+                    googleEventId: "" // ID do evento no Google Calendar
+                }
+            ]);
+            
+            systemSettings = StorageManager.load('systemSettings', {
+                title: "Agenda Moderna",
+                logoBase64: "",
+                slotDuration: 120,
+                webhookNewBooking: "",
+                webhookCancelBooking: "",
+                webhookRescheduleBooking: "",
+                webhookToken: "",
+                googleCalendarId: "", // ID do calendário do Google
+                adminPasswordHash: hashPassword("admin123") // Senha padrão
+            });
+        };
+
+        // Elementos DOM
+        const calendarGrid = document.getElementById('calendarGrid');
+        const currentMonthEl = document.getElementById('currentMonth');
+        const prevMonthBtn = document.getElementById('prevMonth');
+        const nextMonthBtn = document.getElementById('nextMonth');
+        const bookingModal = document.getElementById('bookingModal');
+        const closeBookingModal = document.getElementById('closeBookingModal');
+        const confirmationModal = document.getElementById('confirmationModal');
+        const closeConfirmationModal = document.getElementById('closeConfirmationModal');
+        const adminModal = document.getElementById('adminModal');
+        const closeAdminModal = document.getElementById('closeAdminModal');
+        const adminBtn = document.getElementById('adminBtn');
+        const mobileAdminBtn = document.getElementById('mobileAdminBtn');
+        const myBookingsBtn = document.getElementById('myBookingsBtn');
+        const mobileMyBookingsBtn = document.getElementById('mobileMyBookingsBtn');
+        const myBookingsModal = document.getElementById('myBookingsModal');
+        const closeMyBookingsModal = document.getElementById('closeMyBookingsModal');
+        const adminPanel = document.getElementById('adminPanel');
+        const loginPanel = document.getElementById('loginPanel');
+        const adminPassword = document.getElementById('adminPassword');
+        const loginBtn = document.getElementById('loginBtn');
+        const confirmBooking = document.getElementById('confirmBooking');
+        const notification = document.getElementById('notification');
+        const tabs = document.querySelectorAll('.tab');
+        const bookingsList = document.getElementById('bookingsList');
+        const adminTimeGrid = document.getElementById('adminTimeGrid');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const systemTitleEl = document.getElementById('systemTitle');
+        const logoContainer = document.getElementById('logoContainer');
+        const logoPreview = document.getElementById('logoPreview');
+        const logoUpload = document.getElementById('logoUpload');
+        const searchBtn = document.getElementById('searchBtn');
+        const searchEmail = document.getElementById('searchEmail');
+        const searchResults = document.getElementById('searchResults');
+        const bookingDetails = document.getElementById('bookingDetails');
+        const cancelBookingBtn = document.getElementById('cancelBookingBtn');
+        const rescheduleBookingBtn = document.getElementById('rescheduleBookingBtn');
+        const saveSettingsBtn = document.getElementById('saveSettings');
+        const saveN8nSettingsBtn = document.getElementById('saveN8nSettings');
+        const exportCSV = document.getElementById('exportCSV');
+        const exportJSON = document.getElementById('exportJSON');
+        const saveAvailability = document.getElementById('saveAvailability');
+        const viewBookingBtn = document.getElementById('viewBookingBtn');
+        const newBookingBtn = document.getElementById('newBookingBtn');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const daySelector = document.getElementById('daySelector');
+        const dayButtons = document.querySelectorAll('.day-btn');
+        const phoneInput = document.getElementById('phone');
+        const timeSelectionContainer = document.getElementById('timeSelectionContainer');
+        const mobileTimeGrid = document.getElementById('mobileTimeGrid');
+        const selectedDateText = document.getElementById('selectedDateText');
+        const clearDateSelection = document.getElementById('clearDateSelection');
+        const webhookNewBooking = document.getElementById('webhookNewBooking');
+        const webhookCancelBooking = document.getElementById('webhookCancelBooking');
+        const webhookRescheduleBooking = document.getElementById('webhookRescheduleBooking');
+        const webhookToken = document.getElementById('webhookToken');
+        const googleCalendarId = document.getElementById('googleCalendarId');
+
+        // Variáveis de estado
+        let currentDate = new Date();
+        let selectedDate = new Date();
+        let selectedTime = '';
+        let isAdminLoggedIn = false;
+        let selectedBooking = null;
+        let lastSelectedSlot = null;
+        let lastCreatedBooking = null;
+        let selectedDay = 1; // Segunda-feira por padrão
+        let isRescheduling = false;
+        let reschedulingBookingId = null;
+
+        // Formatar data para exibição
+        function formatDate(date) {
+            const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+            return new Intl.DateTimeFormat('pt-BR', options).format(date);
+        }
+
+        // Formatar mês/ano
+        function formatMonthYear(date) {
+            return new Intl.DateTimeFormat('pt-BR', { month: 'long', year: 'numeric' }).format(date);
+        }
+
+        // Atualizar logo do sistema
+        function updateLogo() {
+            if (systemSettings.logoBase64) {
+                logoContainer.innerHTML = `<img src="${systemSettings.logoBase64}" alt="Logo do sistema">`;
+                logoPreview.src = systemSettings.logoBase64;
+                logoPreview.style.display = 'block';
+            } else {
+                logoContainer.innerHTML = '<span>A</span>';
+                logoContainer.style.backgroundColor = '#2563eb';
+                logoContainer.style.color = 'white';
+                logoContainer.style.fontWeight = 'bold';
+                logoContainer.style.fontSize = '20px';
+                logoPreview.style.display = 'none';
+            }
+        }
+
+        // Atualizar título do sistema
+        function updateTitle() {
+            systemTitleEl.textContent = systemSettings.title;
+        }
+
+        // Resetar formulário de agendamento
+        function resetBookingForm() {
+            document.getElementById('name').value = '';
+            document.getElementById('phone').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('notes').value = '';
+            
+            // Resetar erros
+            document.querySelectorAll('.error-message').forEach(el => {
+                el.style.display = 'none';
+            });
+            document.querySelectorAll('input').forEach(input => {
+                input.classList.remove('input-error');
+            });
+            
+            // Resetar botão de confirmação
+            const confirmBtn = document.getElementById('confirmBooking');
+            confirmBtn.textContent = 'Confirmar Agendamento';
+            delete confirmBtn.dataset.bookingId;
+        }
+
+        // Formatar número de telefone
+        function formatPhoneNumber(input) {
+            let value = input.value.replace(/\D/g, '');
+            
+            // Limitar a 11 dígitos
+            if (value.length > 11) {
+                value = value.substring(0, 11);
+            }
+            
+            if (value.length > 0) {
+                let formattedValue = '(' + value.substring(0, 2);
+                if (value.length > 2) {
+                    formattedValue += ') ' + value.substring(2, 7);
+                }
+                if (value.length > 7) {
+                    formattedValue += '-' + value.substring(7, 11);
+                }
+                input.value = formattedValue;
+            }
+        }
+
+        // Gerar dias do calendário
+        function generateCalendar() {
+            calendarGrid.innerHTML = '';
+            
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            
+            // Primeiro dia do mês
+            const firstDay = new Date(year, month, 1);
+            // Último dia do mês
+            const lastDay = new Date(year, month + 1, 0);
+            // Dias do mês anterior para preencher a primeira semana
+            const prevLastDay = new Date(year, month, 0).getDate();
+            
+            // Dia da semana do primeiro dia (0 = Domingo, 1 = Segunda, ...)
+            const firstDayIndex = firstDay.getDay();
+            
+            // Dia da semana do último dia
+            const lastDayIndex = lastDay.getDay();
+            
+            // Dias do próximo mês para preencher a última semana
+            const nextDays = 7 - lastDayIndex - 1;
+            
+            currentMonthEl.textContent = formatMonthYear(currentDate);
+            
+            // Dias do mês anterior
+            for (let i = firstDayIndex; i > 0; i--) {
+                const day = prevLastDay - i + 1;
+                const prevMonth = month - 1;
+                const prevYear = prevMonth < 0 ? year - 1 : year;
+                
+                const date = new Date(prevYear, prevMonth, day);
+                const dayElement = document.createElement('div');
+                dayElement.classList.add('calendar-day', 'inactive');
+                dayElement.innerHTML = `
+                    <div class="day-number">${day}</div>
+                `;
+                calendarGrid.appendChild(dayElement);
+            }
+            
+            // Dias do mês atual
+            for (let i = 1; i <= lastDay.getDate(); i++) {
+                const date = new Date(year, month, i);
+                const dayOfWeek = date.getDay();
+                
+                const dayElement = document.createElement('div');
+                dayElement.classList.add('calendar-day');
+                
+                // Verificar se é o dia atual
+                const today = new Date();
+                if (date.getDate() === today.getDate() && 
+                    date.getMonth() === today.getMonth() && 
+                    date.getFullYear() === today.getFullYear()) {
+                    dayElement.classList.add('today');
+                }
+                
+                // Verificar se é a data selecionada
+                if (date.getTime() === selectedDate.getTime()) {
+                    dayElement.classList.add('selected');
+                }
+                
+                dayElement.innerHTML = `
+                    <div class="day-number">${i}</div>
+                `;
+                
+                // Adicionar slots de horário apenas no desktop
+                if (window.innerWidth > 768) {
+                    const daySlots = timeSlots[dayOfWeek] || [];
+                    const slotsContainer = document.createElement('div');
+                    slotsContainer.className = 'day-slots';
+                    
+                    daySlots.forEach(slot => {
+                        const slotElement = document.createElement('div');
+                        slotElement.classList.add('slot', `slot-${slot.status}`);
+                        slotElement.textContent = slot.time;
+                        
+                        // Adicionar evento de clique no slot
+                        slotElement.addEventListener('click', (e) => {
+                            e.stopPropagation(); // Evitar propagação para o dia
+                            
+                            // Desselecionar slot anterior
+                            if (lastSelectedSlot) {
+                                lastSelectedSlot.classList.remove('selected');
+                            }
+                            
+                            // Selecionar novo slot
+                            slotElement.classList.add('selected');
+                            lastSelectedSlot = slotElement;
+                            
+                            // Armazenar horário selecionado
+                            selectedTime = slot.time;
+                            
+                            // Abrir modal de agendamento
+                            document.getElementById('modalDate').textContent = formatDate(date);
+                            document.getElementById('modalTime').textContent = slot.time;
+                            bookingModal.classList.add('active');
+                            document.getElementById('name').focus();
+                        });
+                        
+                        slotsContainer.appendChild(slotElement);
+                    });
+                    
+                    dayElement.appendChild(slotsContainer);
+                }
+                
+                // Adicionar evento de clique apenas se não for inativo
+                if (!dayElement.classList.contains('inactive')) {
+                    dayElement.addEventListener('click', (e) => {
+                        // Atualizar data selecionada
+                        selectedDate = date;
+                        
+                        // Para mobile: mostrar seção de horários
+                        if (window.innerWidth <= 768) {
+                            showTimeSelection(date);
+                        }
+                        
+                        // Atualizar calendário para refletir a nova seleção
+                        generateCalendar();
+                    });
+                }
+                
+                calendarGrid.appendChild(dayElement);
+            }
+            
+            // Dias do próximo mês
+            for (let i = 1; i <= nextDays; i++) {
+                const nextMonth = month + 1;
+                const nextYear = nextMonth > 11 ? year + 1 : year;
+                
+                const dayElement = document.createElement('div');
+                dayElement.classList.add('calendar-day', 'inactive');
+                dayElement.innerHTML = `
+                    <div class="day-number">${i}</div>
+                `;
+                calendarGrid.appendChild(dayElement);
+            }
+        }
+
+        // Mostrar seleção de horários para mobile
+        function showTimeSelection(date) {
+            // Atualizar texto com data selecionada
+            selectedDateText.textContent = formatDate(date);
+            
+            // Mostrar container de horários
+            timeSelectionContainer.style.display = 'block';
+            
+            // Limpar grade de horários
+            mobileTimeGrid.innerHTML = '';
+            
+            // Obter dia da semana
+            const dayOfWeek = date.getDay();
+            const daySlots = timeSlots[dayOfWeek] || [];
+            
+            // Gerar botões de horário
+            daySlots.forEach(slot => {
+                const timeSlot = document.createElement('button');
+                timeSlot.classList.add('time-slot-btn');
+                
+                // Verificar status do slot
+                if (slot.status === 'available') {
+                    timeSlot.classList.add('available');
+                } else {
+                    timeSlot.classList.add('booked');
+                    timeSlot.disabled = true;
+                }
+                
+                // Verificar se há agendamento
+                const hasBooking = bookings.some(booking => 
+                    booking.date === date.toISOString().split('T')[0] && 
+                    booking.time === slot.time && 
+                    booking.status === 'confirmed'
+                );
+                
+                if (hasBooking) {
+                    timeSlot.classList.remove('available');
+                    timeSlot.classList.add('booked');
+                    timeSlot.disabled = true;
+                }
+                
+                timeSlot.textContent = slot.time;
+                
+                timeSlot.addEventListener('click', () => {
+                    // Selecionar horário
+                    selectedTime = slot.time;
+                    
+                    // Abrir modal de agendamento
+                    document.getElementById('modalDate').textContent = formatDate(date);
+                    document.getElementById('modalTime').textContent = slot.time;
+                    bookingModal.classList.add('active');
+                    document.getElementById('name').focus();
+                });
+                
+                mobileTimeGrid.appendChild(timeSlot);
+            });
+            
+            // Se não houver horários, mostrar mensagem
+            if (mobileTimeGrid.children.length === 0) {
+                mobileTimeGrid.innerHTML = '<p class="no-bookings">Não há horários disponíveis para este dia.</p>';
+            }
+        }
+
+        // Gerar grade de horários para admin
+        function generateAdminTimeGrid(day) {
+            adminTimeGrid.innerHTML = '';
+            
+            const daySlots = timeSlots[day] || [];
+            
+            daySlots.forEach(slot => {
+                const slotElement = document.createElement('div');
+                slotElement.classList.add('time-slot', slot.status);
+                slotElement.textContent = slot.time;
+                
+                // Adicionar evento de clique para alterar status
+                slotElement.addEventListener('click', () => {
+                    if (slot.status === 'available') {
+                        slot.status = 'unavailable';
+                        slotElement.classList.remove('available');
+                        slotElement.classList.add('unavailable');
+                    } else if (slot.status === 'unavailable') {
+                        slot.status = 'busy';
+                        slotElement.classList.remove('unavailable');
+                        slotElement.classList.add('busy');
+                    } else {
+                        slot.status = 'available';
+                        slotElement.classList.remove('busy');
+                        slotElement.classList.add('available');
+                    }
+                });
+                
+                adminTimeGrid.appendChild(slotElement);
+            });
+            
+            // Botão para adicionar novo horário
+            const addSlotBtn = document.createElement('button');
+            addSlotBtn.className = 'btn btn-outline';
+            addSlotBtn.innerHTML = '+ Adicionar Horário';
+            addSlotBtn.addEventListener('click', () => {
+                const newTime = prompt('Digite o novo horário (formato HH:MM):');
+                if (newTime && Validation.time(newTime)) {
+                    // Verificar se o horário já existe
+                    if (!daySlots.some(slot => slot.time === newTime)) {
+                        daySlots.push({
+                            time: newTime,
+                            status: 'available'
+                        });
+                        generateAdminTimeGrid(day);
+                    } else {
+                        NotificationSystem.show('Este horário já existe', 'warning');
+                    }
+                } else if (newTime) {
+                    NotificationSystem.show('Formato de horário inválido. Use HH:MM', 'error');
+                }
+            });
+            
+            adminTimeGrid.appendChild(addSlotBtn);
+        }
+
+        // Gerar lista de agendamentos
+        function generateBookingsList() {
+            bookingsList.innerHTML = '';
+            
+            if (bookings.length === 0) {
+                bookingsList.innerHTML = '<p class="no-bookings">Nenhum agendamento encontrado.</p>';
+                return;
+            }
+            
+            bookings.forEach(booking => {
+                if (booking.status !== 'cancelled') {
+                    const bookingElement = document.createElement('div');
+                    bookingElement.classList.add('booking-item');
+                    
+                    // Formatar data para exibição
+                    const bookingDate = new Date(booking.date);
+                    const formattedDate = formatDate(bookingDate);
+                    
+                    bookingElement.innerHTML = `
+                        <div class="booking-info">
+                            <h4>${sanitizeInput(booking.name)}</h4>
+                            <p>${formattedDate} | ${booking.time}</p>
+                            <p>${booking.phone} | ${booking.email}</p>
+                            <p>${booking.notes ? sanitizeInput(booking.notes) : 'Sem observações'}</p>
+                            <span class="status-badge status-${booking.status}">${booking.status === 'confirmed' ? 'Confirmado' : 'Remarcado'}</span>
+                        </div>
+                        <div class="booking-actions">
+                            <button class="action-btn edit-btn" data-id="${booking.id}" aria-label="Editar agendamento">✏️</button>
+                            <button class="action-btn delete-btn" data-id="${booking.id}" aria-label="Excluir agendamento">🗑️</button>
+                        </div>
+                    `;
+                    
+                    // Adicionar evento de edição
+                    const editBtn = bookingElement.querySelector('.edit-btn');
+                    editBtn.addEventListener('click', () => {
+                        editBooking(booking.id);
+                    });
+                    
+                    // Adicionar evento de exclusão
+                    const deleteBtn = bookingElement.querySelector('.delete-btn');
+                    deleteBtn.addEventListener('click', () => {
+                        if (confirm('Tem certeza que deseja excluir este agendamento?')) {
+                            deleteBooking(booking.id);
+                        }
+                    });
+                    
+                    bookingsList.appendChild(bookingElement);
+                }
+            });
+        }
+
+        // Buscar agendamentos por email
+        function searchBookingsByEmail(email) {
+            const userBookings = bookings.filter(booking => 
+                booking.email.toLowerCase() === email.toLowerCase()
+            );
+            
+            return userBookings;
+        }
+
+        // Exibir resultados da busca
+        function displaySearchResults(results) {
+            searchResults.innerHTML = '';
+            
+            if (results.length === 0) {
+                searchResults.innerHTML = '<p class="no-bookings">Nenhum agendamento encontrado para este email.</p>';
+                return;
+            }
+            
+            results.forEach(booking => {
+                const resultElement = document.createElement('div');
+                resultElement.classList.add('result-item');
+                resultElement.dataset.id = booking.id;
+                
+                // Formatar data para exibição
+                const bookingDate = new Date(booking.date);
+                const formattedDate = formatDate(bookingDate);
+                
+                const statusClass = booking.status === 'confirmed' ? 'status-confirmed' : 
+                                  booking.status === 'cancelled' ? 'status-cancelled' : 'status-rescheduled';
+                const statusText = booking.status === 'confirmed' ? 'Confirmado' : 
+                                 booking.status === 'cancelled' ? 'Cancelado' : 'Remarcado';
+                
+                resultElement.innerHTML = `
+                    <h4>${sanitizeInput(booking.name)}</h4>
+                    <p><strong>Data:</strong> ${formattedDate} | <strong>Horário:</strong> ${booking.time}</p>
+                    <p><span class="status-badge ${statusClass}">${statusText}</span></p>
+                `;
+                
+                resultElement.addEventListener('click', () => {
+                    selectedBooking = booking;
+                    showBookingDetails(booking);
+                });
+                
+                searchResults.appendChild(resultElement);
+            });
+        }
+
+        // Mostrar detalhes do agendamento
+        function showBookingDetails(booking) {
+            const bookingDate = new Date(booking.date);
+            const formattedDate = formatDate(bookingDate);
+            
+            document.getElementById('detailName').textContent = sanitizeInput(booking.name);
+            document.getElementById('detailEmail').textContent = booking.email;
+            document.getElementById('detailPhone').textContent = booking.phone;
+            document.getElementById('detailDate').textContent = formattedDate;
+            document.getElementById('detailTime').textContent = booking.time;
+            
+            if (booking.status === 'confirmed') {
+                document.getElementById('detailStatus').innerHTML = '<span class="status-badge status-confirmed">Confirmado</span>';
+            } else if (booking.status === 'cancelled') {
+                document.getElementById('detailStatus').innerHTML = '<span class="status-badge status-cancelled">Cancelado</span>';
+            } else {
+                document.getElementById('detailStatus').innerHTML = '<span class="status-badge status-rescheduled">Remarcado</span>';
+            }
+            
+            document.getElementById('detailNotes').textContent = booking.notes || 'Nenhuma observação';
+            
+            searchResults.style.display = 'none';
+            bookingDetails.style.display = 'block';
+        }
+
+        // Validar formulário de agendamento
+        function validateBookingForm() {
+            let isValid = true;
+            
+            // Resetar erros
+            document.querySelectorAll('.error-message').forEach(el => {
+                el.style.display = 'none';
+            });
+            document.querySelectorAll('input').forEach(input => {
+                input.classList.remove('input-error');
+            });
+            
+            // Validar nome
+            const name = document.getElementById('name').value.trim();
+            if (!Validation.required(name)) {
+                document.getElementById('nameError').textContent = 'Por favor, informe seu nome completo';
+                document.getElementById('nameError').style.display = 'block';
+                document.getElementById('name').classList.add('input-error');
+                isValid = false;
+            }
+            
+            // Validar telefone
+            const phone = document.getElementById('phone').value.trim();
+            if (!Validation.phone(phone)) {
+                document.getElementById('phoneError').textContent = 'Por favor, informe um número válido no formato (00) 00000-0000';
+                document.getElementById('phoneError').style.display = 'block';
+                document.getElementById('phone').classList.add('input-error');
+                isValid = false;
+            }
+            
+            // Validar email
+            const email = document.getElementById('email').value.trim();
+            if (!Validation.email(email)) {
+                document.getElementById('emailError').textContent = 'Por favor, informe um email válido';
+                document.getElementById('emailError').style.display = 'block';
+                document.getElementById('email').classList.add('input-error');
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+
+        // Verificar duplicidade de agendamento
+        function isDuplicateBooking(email, date, time) {
+            return bookings.some(booking => 
+                booking.email.toLowerCase() === email.toLowerCase() &&
+                booking.date === date &&
+                booking.time === time &&
+                booking.status === 'confirmed'
+            );
+        }
+
+        // Criar novo agendamento
+        async function createBooking() {
+            const name = sanitizeInput(document.getElementById('name').value.trim());
+            const phone = document.getElementById('phone').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const notes = sanitizeInput(document.getElementById('notes').value.trim());
+            const date = selectedDate.toISOString().split('T')[0];
+            
+            // Verificar duplicidade
+            if (isDuplicateBooking(email, date, selectedTime)) {
+                NotificationSystem.show('Você já possui um agendamento neste horário.', 'warning');
+                return;
+            }
+            
+            // Criar novo agendamento
+            const newBooking = {
+                id: generateId(),
+                name,
+                phone,
+                email,
+                date,
+                time: selectedTime,
+                status: 'confirmed',
+                notes,
+                googleEventId: "" // Será preenchido após integração
+            };
+            
+            bookings.push(newBooking);
+            StorageManager.save('bookings', bookings);
+            
+            // Enviar para n8n e Google Calendar se configurado
+            if (systemSettings.webhookNewBooking && systemSettings.googleCalendarId) {
+                const n8nData = {
+                    ...newBooking,
+                    calendarId: systemSettings.googleCalendarId
+                };
+                
+                try {
+                    const response = await sendToN8n(
+                        systemSettings.webhookNewBooking, 
+                        n8nData, 
+                        systemSettings.webhookToken
+                    );
+                    
+                    if (response && response.eventId) {
+                        // Atualizar com o ID do evento no Google Calendar
+                        newBooking.googleEventId = response.eventId;
+                        StorageManager.save('bookings', bookings);
+                    }
+                } catch (error) {
+                    console.error('Erro na integração:', error);
+                }
+            }
+            
+            // Fechar modal e mostrar modal de confirmação
+            bookingModal.classList.remove('active');
+            
+            document.getElementById('confirmationDate').textContent = formatDate(selectedDate);
+            document.getElementById('confirmationTime').textContent = selectedTime;
+            confirmationModal.classList.add('active');
+            
+            // Salvar para referência
+            lastCreatedBooking = newBooking;
+            
+            // Atualizar calendário
+            generateCalendar();
+        }
+
+        // Editar agendamento
+        async function editBooking(bookingId) {
+            const booking = bookings.find(b => b.id === bookingId);
+            if (booking) {
+                // Preencher formulário com dados do agendamento
+                document.getElementById('name').value = booking.name;
+                document.getElementById('phone').value = booking.phone;
+                document.getElementById('email').value = booking.email;
+                document.getElementById('notes').value = booking.notes || '';
+                
+                // Definir data e hora selecionadas
+                selectedDate = new Date(booking.date);
+                selectedTime = booking.time;
+                
+                // Atualizar calendário
+                currentDate = new Date(booking.date);
+                generateCalendar();
+                
+                // Abrir modal
+                document.getElementById('modalDate').textContent = formatDate(selectedDate);
+                document.getElementById('modalTime').textContent = booking.time;
+                bookingModal.classList.add('active');
+                
+                // Atualizar botão de confirmação
+                const confirmBtn = document.getElementById('confirmBooking');
+                confirmBtn.textContent = 'Atualizar Agendamento';
+                confirmBtn.dataset.bookingId = bookingId;
+            }
+        }
+
+        // Atualizar agendamento existente
+        async function updateBooking(bookingId) {
+            const bookingIndex = bookings.findIndex(b => b.id === bookingId);
+            if (bookingIndex !== -1) {
+                const name = sanitizeInput(document.getElementById('name').value.trim());
+                const phone = document.getElementById('phone').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const notes = sanitizeInput(document.getElementById('notes').value.trim());
+                const date = selectedDate.toISOString().split('T')[0];
+                
+                // Verificar duplicidade (exceto para o próprio agendamento)
+                if (isDuplicateBooking(email, date, selectedTime) && 
+                    bookings[bookingIndex].id !== bookingId) {
+                    NotificationSystem.show('Você já possui um agendamento neste horário.', 'warning');
+                    return;
+                }
+                
+                const oldBooking = {...bookings[bookingIndex]};
+                
+                bookings[bookingIndex] = {
+                    ...bookings[bookingIndex],
+                    name,
+                    phone,
+                    email,
+                    date,
+                    time: selectedTime,
+                    notes
+                };
+                
+                StorageManager.save('bookings', bookings);
+                
+                // Enviar atualização para n8n e Google Calendar se configurado
+                if (systemSettings.webhookRescheduleBooking && systemSettings.googleCalendarId) {
+                    const n8nData = {
+                        oldBooking: {
+                            ...oldBooking,
+                            calendarId: systemSettings.googleCalendarId
+                        },
+                        newBooking: {
+                            ...bookings[bookingIndex],
+                            calendarId: systemSettings.googleCalendarId
+                        }
+                    };
+                    
+                    try {
+                        await sendToN8n(
+                            systemSettings.webhookRescheduleBooking, 
+                            n8nData, 
+                            systemSettings.webhookToken
+                        );
+                    } catch (error) {
+                        console.error('Erro na integração:', error);
+                    }
+                }
+                
+                // Fechar modal e mostrar notificação
+                bookingModal.classList.remove('active');
+                generateCalendar();
+                generateBookingsList();
+                NotificationSystem.show('Agendamento atualizado com sucesso!');
+                
+                // Resetar botão de confirmação
+                const confirmBtn = document.getElementById('confirmBooking');
+                confirmBtn.textContent = 'Confirmar Agendamento';
+                delete confirmBtn.dataset.bookingId;
+            }
+        }
+
+        // Excluir agendamento
+        function deleteBooking(bookingId) {
+            const bookingIndex = bookings.findIndex(b => b.id === bookingId);
+            if (bookingIndex !== -1) {
+                bookings.splice(bookingIndex, 1);
+                StorageManager.save('bookings', bookings);
+                generateBookingsList();
+                generateCalendar();
+                NotificationSystem.show('Agendamento excluído com sucesso!');
+            }
+        }
+
+        // Cancelar agendamento
+        async function cancelBooking(bookingId) {
+            const bookingIndex = bookings.findIndex(b => b.id === bookingId);
+            if (bookingIndex !== -1) {
+                const canceledBooking = bookings[bookingIndex];
+                canceledBooking.status = 'cancelled';
+                StorageManager.save('bookings', bookings);
+                
+                // Atualizar UI
+                if (selectedBooking && selectedBooking.id === bookingId) {
+                    document.getElementById('detailStatus').innerHTML = '<span class="status-badge status-cancelled">Cancelado</span>';
+                }
+                
+                NotificationSystem.show('Agendamento cancelado com sucesso!');
+                generateCalendar();
+                
+                // Enviar cancelamento para n8n e Google Calendar
+                if (systemSettings.webhookCancelBooking && systemSettings.googleCalendarId) {
+                    const n8nData = {
+                        ...canceledBooking,
+                        calendarId: systemSettings.googleCalendarId
+                    };
+                    
+                    try {
+                        await sendToN8n(
+                            systemSettings.webhookCancelBooking, 
+                            n8nData, 
+                            systemSettings.webhookToken
+                        );
+                    } catch (error) {
+                        console.error('Erro na integração:', error);
+                    }
+                }
+            }
+        }
+
+        // Reagendar agendamento
+        async function rescheduleBooking(bookingId) {
+            const bookingIndex = bookings.findIndex(b => b.id === bookingId);
+            if (bookingIndex !== -1) {
+                // Cancelar agendamento antigo
+                const oldBooking = {...bookings[bookingIndex]};
+                bookings[bookingIndex].status = 'cancelled';
+                
+                // Criar novo agendamento
+                const name = sanitizeInput(document.getElementById('name').value.trim());
+                const phone = document.getElementById('phone').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const notes = sanitizeInput(document.getElementById('notes').value.trim());
+                const date = selectedDate.toISOString().split('T')[0];
+                
+                // Verificar duplicidade
+                if (isDuplicateBooking(email, date, selectedTime)) {
+                    NotificationSystem.show('Você já possui um agendamento neste horário.', 'warning');
+                    return;
+                }
+                
+                const newBooking = {
+                    id: generateId(),
+                    name,
+                    phone,
+                    email,
+                    date,
+                    time: selectedTime,
+                    status: 'confirmed',
+                    notes,
+                    rescheduledFrom: bookingId,
+                    googleEventId: "" // Será preenchido após integração
+                };
+                
+                bookings.push(newBooking);
+                StorageManager.save('bookings', bookings);
+                
+                // Enviar remarcação para n8n e Google Calendar
+                if (systemSettings.webhookRescheduleBooking && systemSettings.googleCalendarId) {
+                    const n8nData = {
+                        oldBooking: {
+                            ...oldBooking,
+                            calendarId: systemSettings.googleCalendarId
+                        },
+                        newBooking: {
+                            ...newBooking,
+                            calendarId: systemSettings.googleCalendarId
+                        }
+                    };
+                    
+                    try {
+                        const response = await sendToN8n(
+                            systemSettings.webhookRescheduleBooking, 
+                            n8nData, 
+                            systemSettings.webhookToken
+                        );
+                        
+                        if (response && response.eventId) {
+                            // Atualizar com o ID do evento no Google Calendar
+                            newBooking.googleEventId = response.eventId;
+                            StorageManager.save('bookings', bookings);
+                        }
+                    } catch (error) {
+                        console.error('Erro na integração:', error);
+                    }
+                }
+                
+                // Fechar modal e mostrar notificação
+                bookingModal.classList.remove('active');
+                generateCalendar();
+                generateBookingsList();
+                NotificationSystem.show('Agendamento remarcado com sucesso!');
+            }
+        }
+
+        // Salvar configurações do sistema
+        function saveSystemSettings() {
+            systemSettings.title = document.getElementById('systemTitleInput').value;
+            
+            // Atualizar interface
+            updateTitle();
+            
+            StorageManager.save('systemSettings', systemSettings);
+            NotificationSystem.show('Configurações salvas com sucesso!');
+        }
+
+        // Salvar configurações de integração n8n
+        function saveN8nSettings() {
+            systemSettings.webhookNewBooking = document.getElementById('webhookNewBooking').value;
+            systemSettings.webhookCancelBooking = document.getElementById('webhookCancelBooking').value;
+            systemSettings.webhookRescheduleBooking = document.getElementById('webhookRescheduleBooking').value;
+            systemSettings.webhookToken = document.getElementById('webhookToken').value;
+            systemSettings.googleCalendarId = document.getElementById('googleCalendarId').value;
+            
+            StorageManager.save('systemSettings', systemSettings);
+            NotificationSystem.show('Configurações de integração salvas com sucesso!');
+        }
+
+        // Salvar disponibilidade
+        function saveAvailabilitySettings() {
+            StorageManager.save('timeSlots', timeSlots);
+            generateCalendar();
+            NotificationSystem.show('Disponibilidade atualizada com sucesso!');
+        }
+
+        // Exportar dados para CSV
+        function exportToCSV() {
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "ID,Nome,Email,Telefone,Data,Hora,Status,Observações,ID Evento Google\n";
+            
+            bookings.forEach(booking => {
+                const row = [
+                    booking.id,
+                    `"${booking.name}"`,
+                    booking.email,
+                    booking.phone,
+                    booking.date,
+                    booking.time,
+                    booking.status,
+                    `"${booking.notes || ''}"`,
+                    booking.googleEventId || ''
+                ].join(',');
+                
+                csvContent += row + "\n";
+            });
+            
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "agendamentos.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Exportar dados para JSON
+        function exportToJSON() {
+            const dataStr = JSON.stringify(bookings, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const link = document.createElement("a");
+            link.setAttribute("href", dataUri);
+            link.setAttribute("download", "agendamentos.json");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Inicializar o sistema
+        function init() {
+            // Carregar dados iniciais
+            loadInitialData();
+            
+            // Atualizar interface
+            updateLogo();
+            updateTitle();
+            generateCalendar();
+            
+            // Esconder seção de horários inicialmente
+            timeSelectionContainer.style.display = 'none';
+            
+            // Preencher campos de integração se existirem
+            if (systemSettings.webhookNewBooking) {
+                webhookNewBooking.value = systemSettings.webhookNewBooking;
+            }
+            if (systemSettings.webhookCancelBooking) {
+                webhookCancelBooking.value = systemSettings.webhookCancelBooking;
+            }
+            if (systemSettings.webhookRescheduleBooking) {
+                webhookRescheduleBooking.value = systemSettings.webhookRescheduleBooking;
+            }
+            if (systemSettings.webhookToken) {
+                webhookToken.value = systemSettings.webhookToken;
+            }
+            if (systemSettings.googleCalendarId) {
+                googleCalendarId.value = systemSettings.googleCalendarId;
+            }
+            
+            // Adicionar event listeners
+            setupEventListeners();
+        }
+
+        // Configurar event listeners
+        function setupEventListeners() {
+            // Formatação do telefone
+            phoneInput.addEventListener('input', function() {
+                formatPhoneNumber(this);
+            });
+            
+            // Navegação do calendário
+            prevMonthBtn.addEventListener('click', () => {
+                currentDate.setMonth(currentDate.getMonth() - 1);
+                // Resetar seleção para o primeiro dia do mês
+                selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+                generateCalendar();
+                timeSelectionContainer.style.display = 'none';
+            });
+
+            nextMonthBtn.addEventListener('click', () => {
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+                generateCalendar();
+                timeSelectionContainer.style.display = 'none';
+            });
+
+            // Limpar seleção de data
+            clearDateSelection.addEventListener('click', () => {
+                timeSelectionContainer.style.display = 'none';
+                selectedDate = new Date(); // volta para o dia atual
+                generateCalendar();
+            });
+
+            // Botões de modal
+            adminBtn.addEventListener('click', () => {
+                adminModal.classList.add('active');
+                if (!isAdminLoggedIn) {
+                    loginPanel.style.display = 'block';
+                    adminPanel.classList.remove('active');
+                    logoutBtn.style.display = 'none';
+                } else {
+                    loginPanel.style.display = 'none';
+                    adminPanel.classList.add('active');
+                    logoutBtn.style.display = 'block';
+                }
+            });
+            
+            mobileAdminBtn.addEventListener('click', () => {
+                adminModal.classList.add('active');
+                mobileMenu.classList.remove('active');
+                if (!isAdminLoggedIn) {
+                    loginPanel.style.display = 'block';
+                    adminPanel.classList.remove('active');
+                    logoutBtn.style.display = 'none';
+                } else {
+                    loginPanel.style.display = 'none';
+                    adminPanel.classList.add('active');
+                    logoutBtn.style.display = 'block';
+                }
+            });
+
+            myBookingsBtn.addEventListener('click', () => {
+                myBookingsModal.classList.add('active');
+                searchResults.style.display = 'block';
+                bookingDetails.style.display = 'none';
+                searchEmail.value = '';
+                searchResults.innerHTML = '';
+                resetBookingForm();
+            });
+            
+            mobileMyBookingsBtn.addEventListener('click', () => {
+                myBookingsModal.classList.add('active');
+                mobileMenu.classList.remove('active');
+                searchResults.style.display = 'block';
+                bookingDetails.style.display = 'none';
+                searchEmail.value = '';
+                searchResults.innerHTML = '';
+                resetBookingForm();
+            });
+
+            closeBookingModal.addEventListener('click', () => {
+                bookingModal.classList.remove('active');
+                resetBookingForm();
+                isRescheduling = false;
+                reschedulingBookingId = null;
+            });
+            
+            closeConfirmationModal.addEventListener('click', () => {
+                confirmationModal.classList.remove('active');
+            });
+
+            closeAdminModal.addEventListener('click', () => {
+                adminModal.classList.remove('active');
+                adminPassword.value = '';
+            });
+
+            closeMyBookingsModal.addEventListener('click', () => {
+                myBookingsModal.classList.remove('active');
+            });
+
+            // Login
+            loginBtn.addEventListener('click', () => {
+                const passwordHash = hashPassword(adminPassword.value);
+                if (passwordHash === systemSettings.adminPasswordHash) {
+                    isAdminLoggedIn = true;
+                    loginPanel.style.display = 'none';
+                    adminPanel.classList.add('active');
+                    logoutBtn.style.display = 'block';
+                    generateBookingsList();
+                    generateAdminTimeGrid(selectedDay);
+                    NotificationSystem.show('Login realizado com sucesso!');
+                    
+                    // Carregar configurações na interface
+                    document.getElementById('systemTitleInput').value = systemSettings.title;
+                    document.getElementById('webhookNewBooking').value = systemSettings.webhookNewBooking;
+                    document.getElementById('webhookCancelBooking').value = systemSettings.webhookCancelBooking;
+                    document.getElementById('webhookRescheduleBooking').value = systemSettings.webhookRescheduleBooking;
+                    document.getElementById('webhookToken').value = systemSettings.webhookToken;
+                    document.getElementById('googleCalendarId').value = systemSettings.googleCalendarId;
+                } else {
+                    document.getElementById('passwordError').textContent = 'Senha incorreta. Tente novamente.';
+                    document.getElementById('passwordError').style.display = 'block';
+                    adminPassword.classList.add('input-error');
+                }
+            });
+
+            logoutBtn.addEventListener('click', () => {
+                isAdminLoggedIn = false;
+                loginPanel.style.display = 'block';
+                adminPanel.classList.remove('active');
+                logoutBtn.style.display = 'none';
+                adminPassword.value = '';
+                NotificationSystem.show('Logout realizado com sucesso!');
+            });
+
+            // Confirmação de agendamento
+            confirmBooking.addEventListener('click', async () => {
+                if (!validateBookingForm()) return;
+                
+                const bookingId = confirmBooking.dataset.bookingId;
+                
+                if (isRescheduling && reschedulingBookingId) {
+                    await rescheduleBooking(reschedulingBookingId);
+                    isRescheduling = false;
+                    reschedulingBookingId = null;
+                } else if (bookingId) {
+                    await updateBooking(bookingId);
+                } else {
+                    await createBooking();
+                }
+            });
+
+            // Tabs do painel admin
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remover classe active de todas as tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+                    // Adicionar classe active à tab clicada
+                    tab.classList.add('active');
+                    
+                    // Esconder todos os conteúdos
+                    document.getElementById('bookingsTab').style.display = 'none';
+                    document.getElementById('availabilityTab').style.display = 'none';
+                    document.getElementById('settingsTab').style.display = 'none';
+                    document.getElementById('n8nTab').style.display = 'none';
+                    document.getElementById('statsTab').style.display = 'none';
+                    
+                    // Mostrar conteúdo correspondente
+                    const tabId = tab.getAttribute('data-tab');
+                    document.getElementById(`${tabId}Tab`).style.display = 'block';
+                });
+            });
+
+            // Salvar configurações
+            saveSettingsBtn.addEventListener('click', saveSystemSettings);
+            saveN8nSettingsBtn.addEventListener('click', saveN8nSettings);
+            saveAvailability.addEventListener('click', saveAvailabilitySettings);
+
+            // Busca de agendamentos
+            searchBtn.addEventListener('click', () => {
+                const email = searchEmail.value.trim();
+                if (!email) {
+                    NotificationSystem.show('Digite um email para buscar', 'warning');
+                    return;
+                }
+                
+                if (!Validation.email(email)) {
+                    NotificationSystem.show('Por favor, informe um email válido', 'error');
+                    return;
+                }
+                
+                const results = searchBookingsByEmail(email);
+                displaySearchResults(results);
+            });
+
+            // Busca com debounce
+            searchEmail.addEventListener('input', debounce(() => {
+                const email = searchEmail.value.trim();
+                if (email && Validation.email(email)) {
+                    const results = searchBookingsByEmail(email);
+                    displaySearchResults(results);
+                }
+            }, 300));
+
+            // Cancelar agendamento
+            cancelBookingBtn.addEventListener('click', async () => {
+                if (selectedBooking && confirm('Tem certeza que deseja cancelar este agendamento?')) {
+                    await cancelBooking(selectedBooking.id);
+                }
+            });
+
+            // Remarcar agendamento
+            rescheduleBookingBtn.addEventListener('click', () => {
+                if (selectedBooking) {
+                    // Preencher formulário com dados do lead
+                    document.getElementById('name').value = selectedBooking.name;
+                    document.getElementById('phone').value = selectedBooking.phone;
+                    document.getElementById('email').value = selectedBooking.email;
+                    document.getElementById('notes').value = selectedBooking.notes || '';
+                    
+                    // Fechar modais
+                    myBookingsModal.classList.remove('active');
+                    
+                    // Abrir calendário para seleção de nova data
+                    selectedDate = new Date(selectedBooking.date);
+                    currentDate = new Date(selectedBooking.date);
+                    generateCalendar();
+                    
+                    // Configurar estado de reagendamento
+                    isRescheduling = true;
+                    reschedulingBookingId = selectedBooking.id;
+                    
+                    NotificationSystem.show('Selecione um novo horário para remarcar');
+                }
+            });
+            
+            // Visualizar agendamento após confirmação
+            viewBookingBtn.addEventListener('click', () => {
+                confirmationModal.classList.remove('active');
+                myBookingsModal.classList.add('active');
+                
+                // Preencher busca com email
+                if (lastCreatedBooking) {
+                    searchEmail.value = lastCreatedBooking.email;
+                    const results = searchBookingsByEmail(lastCreatedBooking.email);
+                    displaySearchResults(results);
+                    
+                    // Selecionar o agendamento criado
+                    setTimeout(() => {
+                        const bookingElement = document.querySelector(`.result-item[data-id="${lastCreatedBooking.id}"]`);
+                        if (bookingElement) {
+                            bookingElement.click();
+                        }
+                    }, 100);
+                }
+            });
+            
+            // Novo agendamento após confirmação
+            newBookingBtn.addEventListener('click', () => {
+                confirmationModal.classList.remove('active');
+                resetBookingForm();
+            });
+            
+            // Upload de logo
+            logoUpload.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        systemSettings.logoBase64 = event.target.result;
+                        logoPreview.src = systemSettings.logoBase64;
+                        logoPreview.style.display = 'block';
+                        StorageManager.save('systemSettings', systemSettings);
+                        updateLogo();
+                        NotificationSystem.show('Logo atualizado com sucesso!');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            // Seletor de dia para disponibilidade
+            dayButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remover classe active de todos os botões
+                    dayButtons.forEach(b => b.classList.remove('active'));
+                    // Adicionar classe active ao botão clicado
+                    btn.classList.add('active');
+                    
+                    // Atualizar grade de horários
+                    selectedDay = parseInt(btn.dataset.day);
+                    generateAdminTimeGrid(selectedDay);
+                });
+            });
+            
+            // Inicializar com o primeiro dia selecionado
+            if (dayButtons.length > 0) {
+                dayButtons[1].classList.add('active');
+                generateAdminTimeGrid(1);
+            }
+            
+            // Exportar dados
+            exportCSV.addEventListener('click', exportToCSV);
+            exportJSON.addEventListener('click', exportToJSON);
+            
+            // Menu mobile
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('active');
+            });
+            
+            // Fechar modais com ESC
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    if (bookingModal.classList.contains('active')) {
+                        bookingModal.classList.remove('active');
+                        resetBookingForm();
+                    }
+                    if (adminModal.classList.contains('active')) {
+                        adminModal.classList.remove('active');
+                    }
+                    if (myBookingsModal.classList.contains('active')) {
+                        myBookingsModal.classList.remove('active');
+                    }
+                    if (confirmationModal.classList.contains('active')) {
+                        confirmationModal.classList.remove('active');
+                    }
+                }
+            });
+            
+            // Fechar modais ao clicar no backdrop
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.classList.remove('active');
+                        if (modal === bookingModal) {
+                            resetBookingForm();
+                            isRescheduling = false;
+                            reschedulingBookingId = null;
+                        }
+                    }
+                });
+            });
+            
+            // Redimensionamento da tela
+            window.addEventListener('resize', debounce(() => {
+                generateCalendar();
+            }, 250));
+        }
+
+        // Inicializar o sistema quando o DOM estiver carregado
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
